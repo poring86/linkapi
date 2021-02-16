@@ -1,1 +1,3 @@
 A url para o envio é /envio-bling
+
+Crie o arquivo dev.env dentro da pasta config
