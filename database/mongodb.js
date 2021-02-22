@@ -1,7 +1,9 @@
   
 const Mongoose = require('mongoose');
 
-Mongoose.connect('mongodb://localhost:27017/linkapi', {
+const db_url = process.env.DB_URL
+
+Mongoose.connect(db_url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
