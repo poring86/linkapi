@@ -1,3 +1,7 @@
-A url para o envio é /envio-bling
-
+Tenha o mongodb instalado e rodando na sua máquina
+Crie uma pasta config
 Crie o arquivo dev.env dentro da pasta config
+
+A url para o envio é /envio-bling
+A url para mostrar o total do dia é /total passando data como parametro no formato "YYYY-MM-DD"
+A url para buscar peditos do bling com status "won" é /bling-pedidos

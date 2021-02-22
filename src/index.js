@@ -1,8 +1,16 @@
+require('../database/mongodb');
+
+
 const express = require('express')
 const axios = require('axios')
-const dateFormat = require("dateformat");
+const dateFormat = require("dateformat")
+// const cron = require("node-cron")
+const moment = require('moment')
 
-const xml = require('./bling-xml')
+
+const xml = require('../utils/bling-xml')
+
+const Order = require('../model/Order')
 
 const app = express()
 const port = process.env.PORT
@@ -21,7 +29,7 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get('/envio-bling', (req, res) => {
+app.get('/envio-bling', async (req, res) => {
     axios.get(`https://matt3.pipedrive.com/api/v1/deals?api_token=${pipedrive_api_key}&status=won`, {
 
     })
@@ -30,6 +38,8 @@ app.get('/envio-bling', (req, res) => {
         let pedidos = response.data.data
 
         for ( pedido of pedidos ){
+            let orderId = pedido.id
+
             let name = pedido.person_id.name
 
             let won_time = pedido.won_time
@@ -39,19 +49,32 @@ app.get('/envio-bling', (req, res) => {
 
             let xmlSend = xml(name, won_time, value)
 
-            console.log(name)
 
             axios.post(`https://bling.com.br/Api/v2/pedido/?apikey=${bling_api_key}&xml=${xmlSend}`, {
             })
             .then(response => {
-                console.log(response)
+
+                const order = new Order({
+                    value,
+                    name,
+                    won_time,
+                    orderId
+                })
+
+                try{
+                    order.save()
+                }
+                catch(err){
+                    console.log(err)
+                }
+                
             })
             .catch(err => {
                 console.log(err)
             })
         }
 
-       res.send(response.data.data)
+       res.send('Pedidos enviados ao bling!')
     })
     .catch(err => {
         res.send(err)
@@ -65,11 +88,45 @@ app.get('/bling-pedidos', (req, res) => {
     .then(response => {
        res.send(response.data)
     })
+    .catch(err => {
+        console.log(err)
+    })
 })
 
 app.get('/xml-test', (req, res) => {
     res.send(xml())
 })
+
+app.get('/total', async (req, res) => {
+    if (!req.query.data){
+        res.send('Envie o parâmetro data!')
+    }
+    else{
+        let data = req.query.data
+
+        orders = await Order.find({
+            won_time: {
+              $gte: moment(data).startOf('day'),
+              $lte: moment(data).endOf('day').toDate()
+            }
+        })
+    
+        let totalAmout = 0
+        orders.map( order => {
+            totalAmout += order.value
+        })
+    
+    
+        let stringSend = `O total do dia 2021-02-22 é ${totalAmout}`
+    
+    
+        res.send(stringSend)
+    }
+})
+
+// cron.schedule("1,2,4,5 * * * * *", () => {
+// 	console.log("running a task every 10 second")
+// })
 
 
 app.listen(port, () => {

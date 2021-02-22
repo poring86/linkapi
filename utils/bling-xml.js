@@ -1,6 +1,4 @@
 var js2xmlparser = require("js2xmlparser");
- 
-
 
 const xml = (name = 'Organisys Software test', won_time = '01/09/2009', value = 50) => {
     var obj = {
@@ -88,7 +86,6 @@ const xml = (name = 'Organisys Software test', won_time = '01/09/2009', value = 
             obs_internas: 'Testando o campo observações internas do pedido',
         },
     }
-
     return encodeURI(js2xmlparser.parse("person", obj))
 }
 
