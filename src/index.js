@@ -6,6 +6,7 @@ const axios = require('axios')
 const dateFormat = require("dateformat")
 // const cron = require("node-cron")
 const moment = require('moment')
+const mongoose = require('mongoose')
 
 
 const xml = require('../utils/bling-xml')
@@ -117,7 +118,7 @@ app.get('/total', async (req, res) => {
         })
     
     
-        let stringSend = `O total do dia 2021-02-22 é ${totalAmout}`
+        let stringSend = `O total do dia ${data} é ${totalAmout}`
     
     
         res.send(stringSend)
