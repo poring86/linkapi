@@ -48,26 +48,12 @@ const xml = (name = 'Organisys Software test', won_time = '01/09/2009', value = 
             itens: {
                 item: [
                     {
-                        codigo: '001',
-                        descricao: 'Caneta 001',
+                        codigo: '1',
+                        descricao: 'Won deal',
                         un: 'Pç',
-                        qtde: '10',
-                        vlr_unit: '1.68',
-                    },
-                    {
-                        codigo: '002',
-                        descricao: 'Caderno 002',
-                        un: 'Un',
-                        qtde: '3',
-                        vlr_unit: '3.75',
-                    },
-                    {
-                        codigo: '003',
-                        descricao: 'Teclado 003',
-                        un: 'Cx',
-                        qtde: '7',
-                        vlr_unit: '18.65',
-                    },
+                        qtde: '1',
+                        vlr_unit: value,
+                    }
                 ],
             },
             parcelas: {

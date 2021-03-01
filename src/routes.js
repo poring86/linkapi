@@ -58,7 +58,7 @@ router.get('/envio-bling', async (req, res) => {
                 })
 
                 try{
-                    order.save()
+                    await order.save()
                 }
                 catch(err){
                     console.log(err)
