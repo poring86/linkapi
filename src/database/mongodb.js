@@ -10,5 +10,3 @@ mongoose.connect(db_url, {
 })
 
 console.log('Connected to database!')
-
-module.exports = mongoose

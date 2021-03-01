@@ -29,8 +29,9 @@ class AppController {
             const response = await axios.get(`https://matt3.pipedrive.com/api/v1/deals?api_token=${pipedrive_api_key}&status=won`)
     
             let pedidos = response.data.data
-    
-            for ( pedido of pedidos ){
+
+            pedidos.map( async pedido => {
+                console.log(pedido)
                 let orderId = pedido.id
     
                 let name = pedido.person_id.name
@@ -41,10 +42,13 @@ class AppController {
                 let value = pedido.value
     
                 let xmlSend = xml(name, won_time, value)
+                console.log(xmlSend)
     
                 try{
+                    
                     await axios.post(`https://bling.com.br/Api/v2/pedido/?apikey=${bling_api_key}&xml=${xmlSend}`)
-    
+                    
+                    console.log('passou aqui')
                     const order = new Order({
                         value,
                         name,
@@ -64,9 +68,8 @@ class AppController {
                 catch(err){
                     console.log(err)
                 }
-            }
-    
-            res.send('Pedidos enviados ao bling!')
+                
+            })
         }
         catch (err) {
             res.send(err)
