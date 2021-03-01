@@ -7,7 +7,6 @@ const axios = require('axios')
 const dateFormat = require("dateformat")
 // const cron = require("node-cron")
 const moment = require('moment')
-const mongoose = require('./database/mongodb')
 
 
 const xml = require('./utils/bling-xml')
