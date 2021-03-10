@@ -16,11 +16,6 @@ npm run dev
 
 Go to /envio-bling
 
-
-Tenha o mongodb instalado e rodando na sua máquina
-Crie uma pasta config
-Crie o arquivo dev.env dentro da pasta config
-
 "/" to list the pipedrive deals with "won" status
 "/envio-bling" to send the requests to bling from pipedrive list of won deals
 "/total" to show the total amount by day send with "data" param at this format "YYYY-MM-DD"
